@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import {
     Card,
     CardContent,
@@ -12,10 +12,18 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { registerAction } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 export function RegisterForm(){
 
     const [state, formAction, isPending] = useActionState(registerAction, null);
+    const router = useRouter();
+
+    useEffect(() => {
+        if(state?.success && state?.redirectTo){
+            router.replace(state.redirectTo);
+        }
+    }, [state, router])
 
     return(
         <Card className="bg-app-card border border-app-border w-full max-w-md mx-auto">
@@ -23,6 +31,7 @@ export function RegisterForm(){
                 <CardTitle className="text-white text-center text-3xl sm:text-4xl font-bold">
                     Sujeito<span className="text-brand-primary">Pizza</span>
                 </CardTitle>
+            </CardHeader>
                 <CardContent>
                     <form className="space-y-4" action={formAction}>
 
@@ -32,12 +41,12 @@ export function RegisterForm(){
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-white">Email</Label>
+                            <Label htmlFor="email" className="text-white">Email</Label>
                             <Input type="email" id="email" name="email" placeholder="Digite seu email" required className="text-white bg-app-card border border-app-border"/>
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="senha" className="text-white">Senha</Label>
+                            <Label htmlFor="password" className="text-white">Senha</Label>
                             <Input type="password" id="password" name="password" placeholder="Digite sua senha" required className="text-white bg-app-card border border-app-border"/>
                         </div>
 
@@ -47,7 +56,6 @@ export function RegisterForm(){
 
                     </form>
                 </CardContent>
-            </CardHeader>
         </Card>
     );
 }

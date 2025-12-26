@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUCLIC_API_URL as string;
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 export function getApiUrl(){
     return API_URL;
@@ -25,7 +25,7 @@ export async function apiClient<T>(
     }
 
     if(token){
-        headers["Authorization"] = `Baerer ${token}`
+        headers["Authorization"] = `Bearer ${token}`
     }
 
     if(!(fetchOptions.body instanceof FormData)){
