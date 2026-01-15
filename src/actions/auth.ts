@@ -1,7 +1,8 @@
 "use server"
 
 import { apiClient } from "@/lib/api";
-import { User } from "@/lib/types";
+import { User, AuthResponse } from "@/lib/types";
+import { log } from "console";
 
 export async function registerAction(prevState: {success: boolean; error: string; redirectTo?: string; } | null, formData: FormData)
 {  
@@ -34,3 +35,26 @@ export async function registerAction(prevState: {success: boolean; error: string
     }
 
 };
+
+export async function loginAction(prevState: {success: boolean; error: string; redirectTo?: string; } | null, formData: FormData){
+
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const data = {
+        email: email,
+        password: password,
+    }
+
+    const response = await apiClient<AuthResponse>("/session", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+
+    console.log(response);
+    
+    
+    
+    return { success: true, error: "", redirectTo: "/dashboard" };
+
+}
