@@ -47,6 +47,8 @@ export function LoginForm(){
 
                         <Button type="submit" className="w-full bg-brand-primary text-white hover:bg-brand-primary">{ isPending ? "Acessando conta..." : "Acessar" }</Button>
 
+                        {state?.error && <div className="text-sm text-red-500 bg-red-50 p-3 rounded-md">{state.error}</div>}
+
                         <p className="text-center text-sm text-gray-100">Ainda não possui uma conta? <Link href="/register" className="text-brand-primary font-semibold">Crie uma conta</Link></p>
 
                     </form>

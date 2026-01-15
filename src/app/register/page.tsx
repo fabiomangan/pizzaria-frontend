@@ -7,5 +7,5 @@ export default function Register(){
                 <RegisterForm />
             </div>
         </div>
-    )
+    );
 }
