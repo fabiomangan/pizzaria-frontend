@@ -2,6 +2,7 @@
 
 import { apiClient } from "@/lib/api";
 import { User, AuthResponse } from "@/lib/types";
+import { setToken } from "@/lib/auth";
 
 export async function registerAction(prevState: {success: boolean; error: string; redirectTo?: string; } | null, formData: FormData)
 {  
@@ -52,7 +53,7 @@ export async function loginAction(prevState: {success: boolean; error: string; r
             body: JSON.stringify(data)
         })
     
-        console.log(response);
+        await setToken(response.token)
         
         
         
