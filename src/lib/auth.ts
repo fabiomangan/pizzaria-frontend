@@ -1,4 +1,6 @@
 import { cookies } from "next/headers";
+import { apiClient } from "./api";
+import { User } from "./types";
 
 const COOKIE_NAME = "token_pizzaria";
 
@@ -17,4 +19,24 @@ export async function setToken(token: string){
 export async function removeToken(){
     const cookieStore = await cookies();
     cookieStore.delete(COOKIE_NAME)
+}
+
+export async function getUser(): Promise<User | null>{
+    try {
+        const token = await getToken();
+
+        if(!token){
+            return null;
+        } 
+
+        const user = await apiClient<User>("/me", {
+            token: token
+        })
+
+        return user;
+
+    } catch (error) {
+        //console.log(error);
+        return null;
+    }
 }
