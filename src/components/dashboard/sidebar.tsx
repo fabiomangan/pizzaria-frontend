@@ -1,9 +1,11 @@
 "use client"
 
-import { ShoppingCart, Package, Tags } from "lucide-react";
+import { ShoppingCart, Package, Tags, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { logoutAction } from "@/actions/auth";
 
 interface SidebarProps {
     userName: string;
@@ -59,6 +61,16 @@ export default function Sidebar({ userName }: SidebarProps) {
                     )
                 })}
             </nav>
+
+            {/* FOOTER */}
+            <div className="border-t border-app-border p-4">
+                <form action={logoutAction}>
+                    <Button type="submit" variant={"ghost"} className="w-full justify-start gap-3 text-white hover:text-white hover:bg-transparent">
+                        <LogOut className="w-5 h-5" />
+                        Sair
+                    </Button>
+                </form>
+            </div>
 
             </aside>
             

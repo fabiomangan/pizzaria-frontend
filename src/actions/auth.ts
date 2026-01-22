@@ -2,7 +2,8 @@
 
 import { apiClient } from "@/lib/api";
 import { User, AuthResponse } from "@/lib/types";
-import { setToken } from "@/lib/auth";
+import { setToken, removeToken } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export async function registerAction(prevState: {success: boolean; error: string; redirectTo?: string; } | null, formData: FormData)
 {  
@@ -69,4 +70,9 @@ export async function loginAction(prevState: {success: boolean; error: string; r
 
     }
 
+}
+
+export async function logoutAction(){
+    await removeToken();
+    redirect("/login");
 }
