@@ -28,7 +28,7 @@ interface SidebarProps {
             icon: Tags
         },
     
-]
+];
 
 export default function Sidebar({ userName }: SidebarProps) {
 
